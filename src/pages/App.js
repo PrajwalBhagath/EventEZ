@@ -26,6 +26,10 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {CardList} from 'react-native-card-list';
+
+import ImageOverlay from 'react-native-image-overlay';
+
 const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
@@ -53,22 +57,29 @@ const Section = ({children, title}) => {
 };
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <View>
-        <Text>hello</Text>
-      </View>
-    </SafeAreaView>
+    <View style={styles.backgroundStyle}>
+      <ImageOverlay
+        source={require('./event.jpeg')}
+        overlayColor="grey"
+        style={styles.ImageOverlayView}
+        height="20%">
+        <Text style={{fontSize: 30, color: '#fff'}}>EventEZ</Text>
+      </ImageOverlay>
+      <ScrollView />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  ImageOverlayView: {
+    width: 500,
+    height: 100,
+  },
+  backgroundStyle: {
+    backgroundColor: '#fff',
+    flex: 1,
+  },
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
@@ -88,4 +99,12 @@ const styles = StyleSheet.create({
   },
 });
 
+const Events = [
+  {
+    id: '0',
+    title: 'Starry Night',
+    picture: require('event.jpeg'),
+    content: <Text>Starry Night</Text>,
+  },
+];
 export default App;
