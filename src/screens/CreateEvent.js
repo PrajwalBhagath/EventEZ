@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     height: 100,
   },
   backgroundStyle: {
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFFFF',
     flex: 1,
   },
   sectionContainer: {

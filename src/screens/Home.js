@@ -15,15 +15,15 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
-  ScrollView,
   Dimensions,
 } from 'react-native';
 
 import {images} from '../assets/images';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {NavigationContainer} from '@react-navigation/native';
 const {width, height} = Dimensions.get('window');
 
-const Home = () => {
+const Home = ({navigation}) => {
   //DUMMY DATA
   const Events = [
     {
@@ -79,28 +79,53 @@ const Home = () => {
     const renderItem = ({item}) => (
       <TouchableOpacity
         style={styles.EventList}
-        // onPress={() => {
-      >
+        onPress={() => navigation.navigate('EventDetails', {item})}>
         <View>
           <Image
             source={{uri: `${item.Image}`}}
             resizeMode="cover"
             style={styles.EventImage}
           />
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              height: 50,
+              width: width * 0.4,
+              backgroundColor: '#F95700FF',
+              borderTopRightRadius: 30,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'row',
+              ...styles.shadow,
+            }}>
+            <Image
+              source={require('../assets/icon/calendar.png')}
+              resizeMode="contain"
+              style={styles.ImageStyle}
+            />
+            <Text styles={styles.DateText}>{item.Date}</Text>
+          </View>
         </View>
-        <View
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            height: 50,
-            width: width * 0.3,
-            backgroundColor: '#F95700FF',
-            borderTopRightRadius: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-            ...styles.shadow,
-          }}
-        />
+        {/* Event Info */}
+        <Text style={styles.EventName}>{item.name}</Text>
+        <Text>{item.Description}</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Image
+            source={require('../assets/icon/location.png')}
+            resizeMode="contain"
+            style={{display: 'flex', width: 20, height: 20, marginTop: 10}}
+          />
+          <Text
+            style={{
+              fontSize: 20,
+              marginTop: 5,
+              marginLeft: 7,
+              fontWeight: '200',
+            }}>
+            {item.Location}
+          </Text>
+        </View>
       </TouchableOpacity>
     );
     return (
@@ -128,18 +153,30 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFFFF',
   },
+  DateText: {
+    marginRight: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#FFFFFFFF',
+  },
+  EventName: {
+    fontSize: 20,
+    color: '#F95700FF',
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
   ViewStyle: {
     flexDirection: 'row',
     backgroundColor: '#FFFFFFFF',
   },
   EventList: {
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 50,
   },
   EventImage: {
     width: '100%',
     height: 200,
-    borderRadius: 10,
+    borderRadius: 20,
   },
   List: {
     backgroundColor: '#FFFFFFFF',
@@ -164,6 +201,8 @@ const styles = StyleSheet.create({
   },
   TitleText: {
     fontSize: 50,
+    fontFamily: '../',
+    fontWeight: 'bold',
     color: '#F95700FF',
     lineHeight: 56,
     marginLeft: 40,

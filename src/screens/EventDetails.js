@@ -1,50 +1,142 @@
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {Node} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Animated,
+  Dimensions,
+} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+const {width, height} = Dimensions.get('window');
 
-import ImageOverlay from 'react-native-image-overlay';
+const EventDetails = ({route, navigation}) => {
+  const [Event, setEvent] = React.useState(null);
 
-const EventDetails = () => {
+  React.useEffect(() => {
+    let {item} = route.params;
+    setEvent(item);
+  }, [route.params]);
+
+  function renderHeader() {
+    return (
+      <View style={{flexDirection: 'row'}}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image
+            source={require('../assets/icon/back.png')}
+            style={{
+              width: 30,
+              height: 30,
+              marginLeft: 20,
+              marginTop: 20,
+            }}
+          />
+        </TouchableOpacity>
+        <Text style={styles.TitleText}>{Event?.name}</Text>
+      </View>
+    );
+  }
+
+  function renderContent() {
+    return (
+      <View style={styles.Content}>
+        <View style={{borderBottomColor: 'grey', borderBottomWidth: 1}}>
+          <Image
+            source={{uri: `${Event?.Image}`}}
+            style={{
+              width: '100%',
+              height: 200,
+              alignContent: 'center',
+              alignSelf: 'center',
+              // borderRadius: 20,
+              marginTop: 20,
+            }}
+          />
+          <Text style={styles.ContentText}>Description</Text>
+          <Text style={styles.Description}>{Event?.Description}</Text>
+        </View>
+        <View style={styles.body}>
+          <Image
+            source={require('../assets/icon/location.png')}
+            style={{
+              width: 30,
+              height: 30,
+              marginLeft: 20,
+              marginTop: 20,
+            }}
+          />
+
+          <Text
+            style={{
+              marginTop: 15,
+              fontSize: 30,
+              fontWeight: 'bold',
+              marginLeft: 20,
+            }}>
+            Location
+          </Text>
+          <Text
+            style={{
+              marginTop: 15,
+              fontSize: 30,
+              fontWeight: '200',
+              marginLeft: 20,
+            }}>
+            {Event?.Location}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.backgroundStyle}>
-      <ImageOverlay
-        source={{
-          uri: 'https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-        }}
-        overlayColor="grey"
-        style={styles.ImageOverlayView}
-        height="20%">
-        <Text style={{fontSize: 30, color: '#fff'}}>Event Details</Text>
-      </ImageOverlay>
-    </View>
+    <SafeAreaView>
+      {renderHeader()}
+      {renderContent()}
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  ImageOverlayView: {
-    width: 500,
-    height: 100,
-  },
-  backgroundStyle: {
-    backgroundColor: '#fff',
+  container: {
+    backgroundColor: '#FFFFFFFF',
     flex: 1,
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  body: {
+    flexDirection: 'row',
   },
-  sectionTitle: {
-    backgroundColor: 'white',
-    fontSize: 24,
-    fontWeight: '600',
+  header: {
+    height: 200,
+    backgroundColor: '#FFFFFFFF',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  TitleText: {
+    fontSize: 50,
+    fontFamily: '../',
+    fontWeight: 'bold',
+    color: '#F95700FF',
+    alignItems: 'center',
+    alignContent: 'center',
+    alignSelf: 'center',
+    lineHeight: 56,
+    marginTop: 10,
+    marginLeft: 20,
+    marginRight: width / 2,
   },
-  highlight: {
-    fontWeight: '700',
+  Description: {
+    fontSize: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  ContentText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginLeft: 20,
+    marginTop: 0,
   },
 });
 
