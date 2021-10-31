@@ -9,12 +9,15 @@ import {
   Image,
   Animated,
   Dimensions,
+  Modal,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import QRCode from 'react-native-qrcode-svg';
 const {width, height} = Dimensions.get('window');
 
 const EventDetails = ({route, navigation}) => {
   const [Event, setEvent] = React.useState(null);
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   React.useEffect(() => {
     let {item} = route.params;
@@ -23,7 +26,7 @@ const EventDetails = ({route, navigation}) => {
 
   function renderHeader() {
     return (
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', backgroundColor: '#FFFFFFFF'}}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
             source={require('../assets/icon/back.png')}
@@ -88,12 +91,64 @@ const EventDetails = ({route, navigation}) => {
             {Event?.Location}
           </Text>
         </View>
+        <View style={styles.Location}>
+          <Text style={styles.Date}>{Event?.Date}</Text>
+          <Text style={styles.Date}>{Event?.Time}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.Button}
+          onPress={() => navigation.navigate('LaboursList', route.params)}>
+          <Text style={styles.ButtonText}>Labourers</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.Button}
+          // onPress={() => navigation.navigate('Event')}>
+        >
+          <Text style={styles.ButtonText}>Requests</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.Button}
+          onPress={() => setModalVisible(true)}>
+          <Text style={styles.invite}>Invite</Text>
+        </TouchableOpacity>
+        <Modal transparent={true} visible={modalVisible}>
+          <View style={{backgroundColor: '#000000aa', flex: 1}}>
+            <View
+              style={{
+                backgroundColor: '#FFFFFF',
+                padding: 10,
+                flex: 0.5,
+                margin: 20,
+                borderRadius: 30,
+                marginTop: height / 2 - 100,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  marginBottom: 20,
+                  color: 'green',
+                }}>
+                Invite Labourers
+              </Text>
+              <QRCode value="{Event?.name}" />
+              <TouchableOpacity
+                onPress={() => setModalVisible(false)}
+                style={styles.CloseButton}>
+                <Text style={styles.ButtonText}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       {renderHeader()}
       {renderContent()}
     </SafeAreaView>
@@ -105,12 +160,67 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFFFF',
     flex: 1,
   },
+  Content: {
+    backgroundColor: '#FFFFFFFF',
+  },
+  Button: {
+    backgroundColor: '#FFF',
+    width: width - 40,
+    height: 50,
+    borderRadius: 30,
+    borderColor: 'Black',
+    borderWidth: 1,
+    alignContent: 'center',
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+  CloseButton: {
+    backgroundColor: '#FFF',
+    width: width - 70,
+    height: 50,
+    borderRadius: 30,
+    borderColor: 'Black',
+    borderWidth: 1,
+    alignContent: 'center',
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+  invite: {
+    fontSize: 20,
+    marginTop: 10,
+    marginLeft: 20,
+    fontWeight: 'bold',
+    color: 'green',
+    Position: 'absolute',
+    textAlign: 'left',
+  },
+  ButtonText: {
+    fontSize: 20,
+    marginTop: 10,
+    marginLeft: 20,
+    fontWeight: 'bold',
+    color: 'red',
+    Position: 'absolute',
+    textAlign: 'left',
+  },
   body: {
     flexDirection: 'row',
+  },
+  Location: {
+    flexDirection: 'row',
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1,
   },
   header: {
     height: 200,
     backgroundColor: '#FFFFFFFF',
+  },
+  Date: {
+    fontSize: 20,
+    fontWeight: '200',
+    marginLeft: 70,
+    marginTop: 10,
+    marginBottom: 10,
   },
   TitleText: {
     fontSize: 50,
