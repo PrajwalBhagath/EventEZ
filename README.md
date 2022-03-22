@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # EVENTEZ
 
 ## What is EventEZ?
