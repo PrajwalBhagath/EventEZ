@@ -10,7 +10,7 @@ Modern day event planning can be a headache, with a lot of costs and proper plan
 
 Make sure you have Android studios or XCode simulator depending on which machine you are running the application on.
 
-In the terminal navigat to the app location run the following
+In the terminal navigate to the app location run the following
 `npm install`
 This will install the libraries and dependencies that was used during the development
 
