@@ -28,7 +28,7 @@ For Android
 and for ios
 `npm run ios`
 
-### Screen shots from the App
+# Screen shots from the App
 
 ![Screenshot](https://github.com/PrajwalBhagath/EventEZ/blob/master/screenshots/one.png?raw=true)
 ![Screenshot](https://github.com/PrajwalBhagath/EventEZ/blob/master/screenshots/Simulator%20Screen%20Shot%20-%20iPhone%2012%20-%202022-03-22%20at%2018.21.44.png)
