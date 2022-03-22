@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+
 # EVENTEZ
 
 ## What is EventEZ?
@@ -25,3 +27,7 @@ For Android
 `npm run android`
 and for ios
 `npm run ios`
+
+### Screen shots from the App
+
+! [alt text] (https://github.com/PrajwalBhagath/EventEZ/blob/master/screenshots/one.png?raw=true)
