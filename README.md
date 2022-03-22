@@ -30,4 +30,4 @@ and for ios
 
 ### Screen shots from the App
 
-! [alt text] (https://github.com/PrajwalBhagath/EventEZ/blob/master/screenshots/one.png?raw=true)
+![alt text](https://github.com/PrajwalBhagath/EventEZ/blob/master/screenshots/one.png?raw=true)
